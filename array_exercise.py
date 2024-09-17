@@ -15,7 +15,7 @@ class Array:
 
     def removeAt(self, index):
         if index < 0:
-            pass
+            return ValueError("Index not in range")
         while index < self.last_index:
             self.array[index] = self.array[index + 1]
             index += 1
