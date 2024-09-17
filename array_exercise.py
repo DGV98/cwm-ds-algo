@@ -1,3 +1,6 @@
+import math
+
+
 class Array:
     def __init__(self, length) -> None:
         self.array = [None] * length
@@ -27,6 +30,16 @@ class Array:
             if el == element:
                 return i
         return -1
+
+    def max(self):
+        # Runtime O(n)
+        maximum = -math.inf
+        for i in self.array:
+            maximum = max(maximum, i)
+        return maximum
+
+    def intersect(self):
+        pass
 
 
 if __name__ == "__main__":
