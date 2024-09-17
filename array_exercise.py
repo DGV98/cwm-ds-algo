@@ -14,6 +14,8 @@ class Array:
         return str(self.array)
 
     def removeAt(self, index):
+        if index < 0:
+            pass
         while index < self.last_index:
             self.array[index] = self.array[index + 1]
             index += 1
