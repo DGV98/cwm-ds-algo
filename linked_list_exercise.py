@@ -12,7 +12,7 @@ class LinkedList:
 
     def addFirst(self, val):
         node = Node(val)
-        if not self.first and not self.last:
+        if not self.first:
             self.first = node
             self.last = node
         else:
@@ -21,7 +21,7 @@ class LinkedList:
 
     def addLast(self, val):
         node = Node(val)
-        if not self.first and not self.last:
+        if not self.first:
             self.first = node
             self.last = node
         else:
@@ -29,6 +29,9 @@ class LinkedList:
             self.last = node
 
     def deleteFirst(self):
+        if self.first == self.last:
+            self.first = None
+            self.last = None
         if self.first:
             self.first = self.first.next
 
