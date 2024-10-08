@@ -99,13 +99,32 @@ class LinkedList:
         node.next = prev
         self.first = node
 
+    def get_kth_from_the_end(self, k):
+        if not self.first:
+            return
+        if k > self.size or k < 0:
+            return
+        i = 0
+        curr = self.first
+        node = self.first
+        while i < k - 1 and node:
+            node = node.next
+            i += 1
+        while node.next:
+            curr = curr.next
+            node = node.next
+        return curr
+
 
 if __name__ == "__main__":
     ll = LinkedList()
-    ll.addLast(1)
-    ll.addLast(2)
-    ll.addLast(3)
-    ll.reverse()
+    ll.addLast(10)
+    ll.addLast(20)
+    ll.addLast(30)
+    ll.addLast(40)
+    ll.addLast(50)
+    print(ll.get_kth_from_the_end(6))
+    # ll.reverse()
     print(ll)
     # ll.addFirst(50)
     # print(ll.indexOf(50))  # 0
