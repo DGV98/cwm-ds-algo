@@ -85,12 +85,13 @@ class LinkedList:
         return self.size
 
     def reverse(self):
+        if not self.first:
+            return
         prev = None
         node = self.first
         self.last = node
         next_node = node.next
         while next_node:
-            print(node.value)
             node.next = prev
             prev = node
             node = next_node
@@ -101,7 +102,6 @@ class LinkedList:
 
 if __name__ == "__main__":
     ll = LinkedList()
-    print(ll)
     ll.addLast(1)
     ll.addLast(2)
     ll.addLast(3)
