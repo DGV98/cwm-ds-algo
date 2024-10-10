@@ -102,7 +102,7 @@ class LinkedList:
     def get_kth_from_the_end(self, k):
         if not self.first:
             return
-        if k > self.size or k < 0:
+        if k > self.size or k <= 0:
             return
         i = 0
         curr = self.first
@@ -115,15 +115,42 @@ class LinkedList:
             node = node.next
         return curr
 
+    def print_middle(self):
+        if not self.first:
+            return
+        if self.first == self.last:
+            return (self.first.value)
+        if self.first.next == self.last:
+            return (self.first.value, self.last.value)
+        slow = self.first
+        fast = self.first
+        while fast.next:
+            if not fast.next.next:
+                return (slow.value, slow.next.value)
+            slow = slow.next
+            fast = fast.next.next
+        return (slow.value)
+
+    def has_loop(self):
+        if not self.first:
+            return False
+        if self.first == self.last:
+            return False
+        slow = self.first
+        fast = self.first
+        while fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+
 
 if __name__ == "__main__":
     ll = LinkedList()
     ll.addLast(10)
     ll.addLast(20)
-    ll.addLast(30)
-    ll.addLast(40)
-    ll.addLast(50)
-    print(ll.get_kth_from_the_end(6))
+    print(ll.print_middle())
     # ll.reverse()
     print(ll)
     # ll.addFirst(50)
