@@ -1,10 +1,5 @@
 def balance(str):
-    mappings = {
-        ")": "(",
-        "}": "{",
-        "]": "[",
-        ">": "<"
-    }
+    mappings = {")": "(", "}": "{", "]": "[", ">": "<"}
     stack = []
     for i in str:
         if i in mappings.values():
@@ -15,6 +10,8 @@ def balance(str):
             val = stack.pop()
             if val != mappings[i]:
                 return False
+    if stack:
+        return False
     return True
 
 
