@@ -41,6 +41,16 @@ class minStack:
         return self.min
 
 
+def reverse_string(str):
+    stack = []
+    for i in str:
+        stack.append(i)
+    new_str = ''
+    while stack:
+        new_str += stack.pop()
+    return new_str
+
+
 if __name__ == "__main__":
     stack = Stack()
     stack.push(5)
@@ -50,3 +60,4 @@ if __name__ == "__main__":
     print(stack.isEmpty())
     stack.pop()
     print(stack.isEmpty())
+    print(reverse_string("hello"))
