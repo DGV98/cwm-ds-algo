@@ -77,6 +77,38 @@ def traverse_post_order(root: Node):
     print(root.value)
 
 
+def height(root: Node):
+    if not root:
+        return -1
+    if not root.left_child and not root.right_child:
+        return 0
+    return 1 + max(height(root.left_child), height(root.right_child))
+
+
+def minimum(root: Node):
+    if not root.left_child and not root.right_child:
+        return root.value
+    return min(min(minimum(root.left_child), minimum(root.right_child)), root.value)
+
+
+def is_leaf(node: Node):
+    return not node.left_child and not node.right_child
+
+
+def equal(root1: Node, root2: Node):
+    if root1 and not root2:
+        return False
+    if not root1 and root2:
+        return False
+    if not root1 and not root2:
+        return True
+    return (
+        equal(root1.left_child, root2.left_child)
+        and equal(root1.right_child, root2.right_child)
+        and root1.value == root2.value
+    )
+
+
 if __name__ == "__main__":
     t = Tree()
     t.insert(7)
@@ -86,9 +118,20 @@ if __name__ == "__main__":
     t.insert(6)
     t.insert(8)
     t.insert(10)
+    t2 = Tree()
+    t2.insert(7)
+    t2.insert(4)
+    t2.insert(9)
+    t2.insert(1)
+    t2.insert(6)
+    t2.insert(8)
+    t2.insert(10)
     print("Pre Order")
     traverse_pre_order(t.root)
     print("In Order:")
     traverse_in_order(t.root)
     print("Post Order")
     traverse_post_order(t.root)
+    print(f"Height of the tree is: {height(t.root)}")
+    print(f"Minimum of tree is: {minimum(t.root)}")
+    print(f"Equal trees t1 and t2: {equal(t.root, t2.root)}")
