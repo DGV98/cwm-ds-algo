@@ -20,6 +20,29 @@ def first_repeated_char(str):
     return ""
 
 
+def count_pairs_with_diff(nums, k):
+    # O(n)
+    i = 0
+    n = len(nums)
+    s = set(nums)
+    s_pairs = set()
+    for num in nums:
+        if (num - k) in s:
+            s_pairs.add(((num - k), num))
+        elif (num + k) in s:
+            s_pairs.add((num, (num + k)))
+    return len(s_pairs)
+
+
+def two_sum(nums, target):
+    hashmap = {}
+    for i, num in enumerate(nums):
+        if (target - num) in hashmap:
+            return [hashmap[target - num], i]
+        hashmap[num] = i
+    return []
+
+
 def most_frequent_element(nums):
     hashmap = {}
     for num in nums:
@@ -103,3 +126,5 @@ if __name__ == "__main__":
     hashmap.put(5, "Hello")
     print(hashmap.get(5))
     print(most_frequent_element([1, 1, 1, 2, 2, 4, 4, 4, 4, 5, 6, 7, 7, 7]))
+    print(count_pairs_with_diff([1, 7, 5, 9, 2, 12, 3], 2))
+    print(two_sum([2, 7, 11, 15], 17))
