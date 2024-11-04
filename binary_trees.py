@@ -109,6 +109,72 @@ def equal(root1: Node, root2: Node):
     )
 
 
+def node_k_distance(root: Node, k: int):
+    if not root:
+        return
+    if k == 0 and root:
+        print(root.value)
+        return
+    node_k_distance(root.left_child, k - 1)
+    node_k_distance(root.right_child, k - 1)
+
+
+def get_nodes_k_distance(root: Node, k: int, elements: list):
+    if not root:
+        return
+    if k == 0:
+        elements.append(root.value)
+    get_nodes_k_distance(root.left_child, k - 1, elements)
+    get_nodes_k_distance(root.right_child, k - 1, elements)
+
+
+def bfs(root: Node):
+    levels = height(root)
+    i = 0
+    while i <= levels:
+        nodes = []
+        get_nodes_k_distance(root, i, nodes)
+        for num in nodes:
+            print(num)
+        i += 1
+
+
+def size(root: Node):
+    if not root:
+        return 0
+    return 1 + size(root.left_child) + size(root.right_child)
+
+
+def count_leaves(root: Node):
+    if not root.left_child and not root.right_child:
+        return 1
+    return count_leaves(root.left_child) + count_leaves(root.right_child)
+
+
+def find_max(root: Node):
+    if not root.left_child and not root.right_child:
+        return root.value
+    return max(max(find_max(root.left_child), find_max(root.right_child)), root.value)
+
+
+def find_recursive(root: Node, val: int):
+    if not root:
+        return False
+    if root.value == val:
+        return True
+    return find_recursive(root.left_child, val) or find_recursive(root.right_child, val)
+
+
+def are_siblings(root: Node, x: int, y: int):
+    if not root.left_child or not root.right_child:
+        return False
+    if root.left_child.value == x and root.right_child.value == y:
+        return True
+    if root.left_child.value == y and root.right_child.value == x:
+        return True
+    return are_siblings(root.left_child, x, y) or are_siblings(root.right_child, x, y)
+
+
 if __name__ == "__main__":
     t = Tree()
     t.insert(7)
@@ -135,3 +201,13 @@ if __name__ == "__main__":
     print(f"Height of the tree is: {height(t.root)}")
     print(f"Minimum of tree is: {minimum(t.root)}")
     print(f"Equal trees t1 and t2: {equal(t.root, t2.root)}")
+    print(f"Nodes 1 away from root:")
+    node_k_distance(t.root, 0)
+    bfs(t.root)
+    print(f"Size of tree: {size(t.root)}")
+    print(f"Number of leaves: {count_leaves(t.root)}")
+    print(f"The max of the tree is: {find_max(t.root)}")
+    print(f"8 is in the tree: {find_recursive(t.root, 8)}")
+    print(f"40 is not in the tree: {find_recursive(t.root, 40)}")
+    print(f"4 and 9 are siblings: {are_siblings(t.root, 4, 9)}")
+    print(f"4 and 10 are not siblings: {are_siblings(t.root, 4, 10)}")
