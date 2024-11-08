@@ -5,6 +5,8 @@ insert (value)
 find(value)
 """
 
+import math
+
 
 class Node:
     def __init__(self, val):
@@ -96,16 +98,25 @@ def is_leaf(node: Node):
 
 
 def equal(root1: Node, root2: Node):
-    if root1 and not root2:
-        return False
-    if not root1 and root2:
-        return False
     if not root1 and not root2:
         return True
+    if root1 and root2:
+        return (
+            root1.value == root2.value
+            and equal(root1.left_child, root2.left_child)
+            and equal(root1.right_child, root2.right_child)
+        )
+    return False
+
+
+def valid_bst(root: Node, min: int, max: int):
+    if not root:
+        return True
     return (
-        equal(root1.left_child, root2.left_child)
-        and equal(root1.right_child, root2.right_child)
-        and root1.value == root2.value
+        root.value > min
+        and root.value < max
+        and valid_bst(root.left_child, min, root.value)
+        and valid_bst(root.right_child, root.value, max)
     )
 
 
@@ -125,7 +136,7 @@ if __name__ == "__main__":
     t2.insert(1)
     t2.insert(6)
     t2.insert(8)
-    t2.insert(10)
+    # t2.insert(10)
     print("Pre Order")
     traverse_pre_order(t.root)
     print("In Order:")
@@ -135,3 +146,4 @@ if __name__ == "__main__":
     print(f"Height of the tree is: {height(t.root)}")
     print(f"Minimum of tree is: {minimum(t.root)}")
     print(f"Equal trees t1 and t2: {equal(t.root, t2.root)}")
+    print(f"This is a valid BST: {valid_bst(t.root, -math.inf, math.inf)}")
